@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/src/server.js"
+    }
+  ],
+  "installCommand": "npm install",
+  "env": {
+    "POSTGRES_DATABASE": "postgres://default:T5pkfAecwz8s@ep-quiet-sunset-a4kywf29.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+  }
+}
