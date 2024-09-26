@@ -1,5 +1,28 @@
 import Joi from 'joi'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import PasswordValidator from 'password-validator'
+
+const schema = new PasswordValidator()
+schema
+  .is()
+  .min(6) // Longitud mínima 6
+  .is()
+  .max(20) // Longitud máxima 20
+  .has()
+  .uppercase() // Debe tener al menos una letra mayúscula
+  .has()
+  .lowercase() // Debe tener al menos una letra minúscula
+  .has()
+  .digits() // Debe tener al menos un número
+  .has()
+  .symbols() // Debe tener al menos un carácter especial
+  .has()
+  .not()
+  .spaces() // No debe tener espacios
+
+const validatePassword = password => {
+  return schema.validate(password)
+}
 
 const isValidPhoneNumber = value => {
   const phoneNumber = parsePhoneNumberFromString(value)
@@ -28,11 +51,21 @@ const userSchema = Joi.object({
     'any.required': 'El correo electrónico es un campo requerido.'
   }),
 
-  password_hash: Joi.string().min(6).required().messages({
-    'string.base': 'La contraseña debe ser una cadena de texto.',
-    'string.min': 'La contraseña debe tener al menos 6 caracteres.',
-    'any.required': 'La contraseña es un campo requerido.'
-  }),
+  password_hash: Joi.string()
+    .custom((value, helpers) => {
+      if (!validatePassword(value)) {
+        return helpers.message(
+          'La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'
+        )
+      }
+      return value
+    })
+    .required()
+    .messages({
+      'string.base': 'La contraseña debe ser una cadena de texto.',
+      'string.min': 'La contraseña debe tener al menos 6 caracteres.',
+      'any.required': 'La contraseña es un campo requerido.'
+    }),
 
   status: Joi.string().valid('active', 'inactive').default('active').messages({
     'string.base': 'El estado debe ser una cadena de texto.',
