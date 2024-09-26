@@ -51,7 +51,7 @@ const userSchema = Joi.object({
     'any.required': 'El correo electrónico es un campo requerido.'
   }),
 
-  password_hash: Joi.string()
+  passwordHash: Joi.string()
     .custom((value, helpers) => {
       if (!validatePassword(value)) {
         return helpers.message(

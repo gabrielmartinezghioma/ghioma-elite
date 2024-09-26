@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/DB/conection.js'
+import bcrypt from 'bcrypt'
 
 const User = sequelize.define('user', {
   id: {
@@ -20,7 +21,7 @@ const User = sequelize.define('user', {
     allowNull: false,
     unique: true
   },
-  password_hash: {
+  passwordHash: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -37,7 +38,23 @@ const User = sequelize.define('user', {
     type: DataTypes.STRING(15),
     allowNull: true,
     unique: true
+  },
+  isVerifed: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
   }
+})
+
+User.prototype.toJSON = function () {
+  const values = Object.assign({}, this.get())
+  delete values.password
+  return values
+}
+
+User.beforeCreate(async user => {
+  const password = user.passwordHash
+  const hashPassword = await bcrypt.hash(password, 10)
+  user.passwordHash = hashPassword
 })
 
 export default User
