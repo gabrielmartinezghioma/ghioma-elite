@@ -29,8 +29,7 @@ const isValidPhoneNumber = value => {
   return phoneNumber && phoneNumber.isValid() // Devuelve true o false
 }
 
-// Define el esquema de validación
-const userSchema = Joi.object({
+export const userCreateSchema = Joi.object({
   firstName: Joi.string().min(3).max(100).required().messages({
     'string.base': 'El nombre debe ser una cadena de texto.',
     'string.min': 'El nombre debe tener al menos 3 caracteres.',
@@ -88,7 +87,29 @@ const userSchema = Joi.object({
     .messages({
       'string.base': 'El número de celular debe ser una cadena de texto.',
       'any.required': 'El número de celular es un campo requerido.'
+    }),
+  frontBaseUrl: Joi.string()
+    .pattern(/^(http:\/\/tn\.com|http:\/\/localhost:1000)/)
+    .required()
+    .messages({
+      'string.base': 'La URL debe ser una cadena de texto.',
+      'string.pattern.base': 'La URL es incorrecta.',
+      'any.required': 'La URL de la base frontal es un campo requerido.'
     })
 })
 
-export default userSchema
+export const userUpdateSchema = Joi.object({
+  firstName: Joi.string().min(3).max(100).required().messages({
+    'string.base': 'El nombre debe ser una cadena de texto.',
+    'string.min': 'El nombre debe tener al menos 3 caracteres.',
+    'string.max': 'El nombre no puede exceder los 100 caracteres.',
+    'any.required': 'El nombre es un campo requerido.'
+  }),
+
+  lastName: Joi.string().min(3).max(100).required().messages({
+    'string.base': 'El Apellido debe ser una cadena de texto.',
+    'string.min': 'El Apellido debe tener al menos 3 caracteres.',
+    'string.max': 'El Apellido no puede exceder los 100 caracteres.',
+    'any.required': 'El Apellido es un campo requerido.'
+  })
+})

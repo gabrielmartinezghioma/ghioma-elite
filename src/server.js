@@ -1,5 +1,6 @@
 import app from './app.js'
 import sequelize from './config/DB/conection.js'
+import './models/VerifyAccount.js'
 
 const PORT = process.env.PORT || 8080
 

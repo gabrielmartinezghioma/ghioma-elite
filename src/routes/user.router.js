@@ -1,16 +1,24 @@
+import { verifyJWT } from '../config/middlewares/verifyJWT.js'
 import {
   getAll,
   create,
   getOne,
   remove,
-  update
+  update,
+  verifyAccountCode
 } from '../controllers/user.controllers.js'
 import { Router } from 'express'
 
 const routerUser = Router()
 
-routerUser.route('/').get(getAll).post(create)
+routerUser.route('/').get(verifyJWT, getAll).post(create)
 
-routerUser.route('/:id').get(getOne).delete(remove).put(update)
+routerUser.route('/verify/:code').get(verifyAccountCode)
+
+routerUser
+  .route('/:id')
+  .get(verifyJWT, getOne)
+  .delete(verifyJWT, remove)
+  .put(verifyJWT, update)
 
 export default routerUser

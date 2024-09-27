@@ -20,3 +20,7 @@ export const updateUser = async (id, userData) => {
 export const deleteUser = async id => {
   return await User.destroy({ where: { id } })
 }
+
+export const isVerifedUser = async user => {
+  return await user.update({ isVerifed: true })
+}
