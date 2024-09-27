@@ -20,6 +20,8 @@ import {
   destroyCodeVerifyAccount,
   getVerifyAccount
 } from '../services/verifyAccount.services.js'
+import UserRole from '../models/UserRole.js'
+import Role from '../models/Role.js'
 
 export const getAll = catchError(async (req, res) => {
   const results = await getAllUsers()
@@ -66,8 +68,13 @@ export const create = catchError(async (req, res) => {
   }
 
   const result = await createUser({ ...body, image })
+  const userId = result.id
 
-  await createVerifyAccount({ code, userId: result.id })
+  const { id } = await Role.findOne({ where: { roleName: 'user' } })
+
+  await UserRole.create({ userId, roleId: id })
+
+  await createVerifyAccount({ code, userId })
 
   return res.status(201).json(result)
 })

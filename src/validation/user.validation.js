@@ -66,10 +66,13 @@ export const userCreateSchema = Joi.object({
       'any.required': 'La contraseña es un campo requerido.'
     }),
 
-  status: Joi.string().valid('active', 'inactive').default('active').messages({
-    'string.base': 'El estado debe ser una cadena de texto.',
-    'any.only': 'El estado debe ser "active" o "inactive".'
-  }),
+  status: Joi.string()
+    .valid('active', 'suspended', 'inactive')
+    .default('active')
+    .messages({
+      'string.base': 'El estado debe ser una cadena de texto.',
+      'any.only': 'El estado debe ser "active" o "inactive".'
+    }),
 
   image: Joi.string().uri().messages({
     'string.base': 'La imagen debe ser una cadena de texto.',
