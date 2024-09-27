@@ -1,24 +1,11 @@
-import catchError from '../config/middlewares/asyncWrapper.js'
+import catchError from '../config/middlewares/asyncWrapper.middlewares.js'
 import { userLogin } from '../services/login.services.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { loginSchema } from '../validation/login.validation.js'
-import axios from 'axios'
 
 export const login = catchError(async (req, res) => {
-  const { email, passwordHash, recaptchaToken } = req.body
-
-  let success = true
-  const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
-  const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptchaToken}`
-  const recaptchaResponse = await axios.post(verifyURL)
-  if (process.env.NODE_ENV !== 'development') {
-    success = recaptchaResponse.data.success
-  }
-
-  if (!success) {
-    return res.status(401).json({ error: 'reCAPTCHA verification failed' })
-  }
+  const { email, passwordHash } = req.body
 
   const body = (({ email, passwordHash }) => ({
     email,

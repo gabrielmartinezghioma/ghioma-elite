@@ -1,5 +1,5 @@
-import Role from '../models/Role.js'
-import UserRole from '../models/UserRole.js'
+import Role from '../../models/Role.js'
+import UserRole from '../../models/UserRole.js'
 
 export function checkAdminRole(roleName) {
   return async function (req, res, next) {

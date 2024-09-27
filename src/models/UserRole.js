@@ -23,6 +23,7 @@ const UserRole = sequelize.define('userRole', {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
+      model: Role,
       key: 'id'
     },
     onUpdate: 'CASCADE',

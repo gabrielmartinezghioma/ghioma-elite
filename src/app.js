@@ -5,7 +5,7 @@ import logger from 'morgan'
 import path from 'node:path'
 import { fileURLToPath } from 'url'
 import router from './routes/index.js'
-import errorHandler from './config/middlewares/errorHandler.js'
+import errorHandler from './config/middlewares/errorHandler.middlewares.js'
 
 const app = express()
 

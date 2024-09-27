@@ -1,11 +1,26 @@
+import Role from '../models/Role.js'
 import User from '../models/User.js'
 
 export const getAllUsers = async () => {
-  return await User.findAll()
+  return await User.findAll({
+    include: [
+      {
+        model: Role,
+        attributes: ['roleName']
+      }
+    ]
+  })
 }
 
 export const getUserById = async id => {
-  return await User.findByPk(id)
+  return await User.findByPk(id, {
+    include: [
+      {
+        model: Role,
+        attributes: ['roleName']
+      }
+    ]
+  })
 }
 
 export const createUser = async userData => {

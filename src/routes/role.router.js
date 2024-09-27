@@ -1,16 +1,9 @@
-import {
-  getAll,
-  create,
-  getOne,
-  remove,
-  update
-} from '../controllers/role.controllers.js '
+import { getAll, getOne } from '../controllers/role.controllers.js '
 import { Router } from 'express'
 
 const routerRole = Router()
 
-routerRole.route('/').get(getAll).post(create)
+routerRole.route('/').get(getAll)
 
-routerRole.route('/:id').get(getOne).delete(remove).put(update)
-
+routerRole.route('/:id').get(getOne)
 export default routerRole
