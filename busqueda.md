@@ -5,6 +5,7 @@ Para buscar repositorios de e-commerce con enfoque en el frontend en GitHub, pue
 2. **Usa la barra de búsqueda**: En la parte superior, encontrarás una barra de búsqueda. Puedes utilizar términos específicos para encontrar repositorios relevantes.
 
 3. **Utiliza términos de búsqueda**: Puedes ingresar palabras clave como:
+
    - `ecommerce frontend`
    - `shopping cart frontend`
    - `online store frontend`
@@ -13,6 +14,7 @@ Para buscar repositorios de e-commerce con enfoque en el frontend en GitHub, pue
    - `angular ecommerce`
 
 4. **Filtrar resultados**: Una vez que obtengas los resultados, puedes utilizar los filtros en la parte superior para refinar tu búsqueda:
+
    - **Type**: Selecciona "Repositories" para limitar los resultados a repositorios.
    - **Language**: Filtra por el lenguaje de programación que te interese (por ejemplo, JavaScript, React, Vue, etc.).
    - **Sort**: Puedes ordenar los resultados por "Best match", "Most stars", "Fewest stars", etc., para encontrar los repositorios más populares o relevantes.
