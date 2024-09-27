@@ -20,7 +20,10 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(helmet({ crossOriginResourcePolicy: false }))
 
-app.get('/', router)
+app.get('/', (req, res) => {
+  res.render('index')
+})
+
 app.use('/api/v1', router)
 
 app.use(errorHandler)
