@@ -9,7 +9,13 @@ const VerifyTransaction = sequelize.define('verifyTransaction', {
   },
   code: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      len: {
+        args: [8, 8],
+        msg: 'El código debe tener exactamente 8 dígitos.'
+      }
+    }
   },
   userId: {
     type: DataTypes.UUID,
