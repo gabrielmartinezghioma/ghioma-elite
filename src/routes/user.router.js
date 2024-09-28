@@ -16,13 +16,14 @@ import { randomBytes } from 'crypto'
 import { verifyaccount } from '../config/nodemailer/views/verifyaccount.views.js'
 
 import { validateUserUpdate } from '../validation/middleware/validateUserUpdate.middlewares.js'
+import { checkAdminRole } from '../config/middlewares/checkAdminRole.middlewares.js'
 
 const routerUser = Router()
 const code = randomBytes(64).toString('hex')
 
 routerUser
   .route('/')
-  .get(verifyJWT, getAll)
+  .get(verifyJWT, checkAdminRole('admin'), getAll)
   .post(
     verifyRecaptcha,
     validateUserCreate,

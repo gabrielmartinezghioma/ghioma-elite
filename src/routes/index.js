@@ -11,11 +11,11 @@ const router = express.Router()
 
 router.use('/users', routerUser)
 router.use('/login', verifyRecaptcha, routerLogin)
-router.use('/admin/roles', verifyJWT, checkAdminRole('user'), routerRole) // 🔒
+router.use('/admin/roles', verifyJWT, checkAdminRole('admin'), routerRole) // 🔒
 router.use(
   '/admin/set-roles',
   verifyJWT,
-  checkAdminRole('user'),
+  checkAdminRole('admin'),
   routerUserRole
 )
 

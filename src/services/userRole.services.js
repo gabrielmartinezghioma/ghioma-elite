@@ -1,4 +1,5 @@
 import UserRole from '../models/UserRole.js'
+import VerifyTransaction from '../models/VerifyTransaction.js'
 
 export const getAllUserRoles = async () => {
   return await UserRole.findAll()
@@ -8,8 +9,16 @@ export const getOneUserRoles = async id => {
   return await UserRole.findByPk(id)
 }
 
-export const removeUserRoles = async (roleUser, role) => {
-  return await roleUser.update({
+export const getRole = async result => {
+  return await UserRole.findOne({ where: { userId: result.userId } })
+}
+
+export const removeUserRoles = async (userId, role) => {
+  return await userId.update({
     roleId: role.id
   })
+}
+
+export const verifyTransaction = async body => {
+  await VerifyTransaction.create(body)
 }
