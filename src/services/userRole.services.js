@@ -12,8 +12,8 @@ export const getRole = async result => {
   return await UserRole.findOne({ where: { userId: result.userId } })
 }
 
-export const removeUserRoles = async (userId, role) => {
-  return await userId.update({
+export const removeUserRoles = async (roleInstances, role) => {
+  return await roleInstances.update({
     roleId: role.id
   })
 }
