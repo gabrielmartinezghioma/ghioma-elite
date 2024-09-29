@@ -23,6 +23,10 @@ export const getUserById = async id => {
   })
 }
 
+export const userById = async id => {
+  return await User.findByPk(id)
+}
+
 export const createUser = async userData => {
   return await User.create(userData)
 }

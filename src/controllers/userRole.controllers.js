@@ -1,17 +1,20 @@
 import catchError from '../config/middlewares/asyncWrapper.middlewares.js'
 import { sendNotificationEmail } from '../config/nodemailer/sendNotificationEmail.js'
 import { changeRoleSuccessfully } from '../config/nodemailer/views/verifyTransaction.views.js'
-import User from '../models/User.js'
 import UserRole from '../models/UserRole.js'
-import VerifyTransaction from '../models/VerifyTransaction.js'
 import { roles } from '../roles/roles.js'
+import { userById } from '../services/user.services.js'
 import {
   getAllUserRoles,
   getOneUserRoles,
   getRole,
-  removeUserRoles,
-  verifyTransaction
+  removeUserRoles
 } from '../services/userRole.services.js'
+import {
+  destroyVerifyTransaction,
+  getVerifyTransaction,
+  verifyTransaction
+} from '../services/verifyTransaction.services.js'
 
 export const getAll = catchError(async (req, res) => {
   const results = await getAllUserRoles()
@@ -25,10 +28,9 @@ export const getOne = catchError(async (req, res) => {
   return res.json(result)
 })
 
-// Agregar validaciones y servicios
+/// //
 export const remove = catchError(async (req, res, next) => {
   const { id } = req.params
-  req.roleId = id
   const roleUser = await getOneUserRoles(id)
   if (!roleUser) return res.status(404).json({ message: 'role not found' })
   next()
@@ -42,37 +44,33 @@ export function removeSendEmail(code) {
     return res.json({ message: 'Sent email' })
   })
 }
+/// ///
 
 export const removeRole = catchError(async (req, res, next) => {
   const { id } = req.params
-  if (!id === req.roleId)
-    return res.status(404).json({ message: 'Role not found' })
-
+  const getUserRole = await getOneUserRoles(id)
+  if (!getUserRole) return res.status(404).json({ message: 'Role not found' })
   const { code } = req.body
-  const result = await VerifyTransaction.findOne({ where: { code } })
+  const result = await getVerifyTransaction(code)
   if (!result) return res.status(404).json({ message: 'Code not found' })
-
   const role = roles.find(role => role.roleName === 'user')
   const roleInstances = await getRole(result)
-
   const roleDefault = await removeUserRoles(roleInstances, role)
-
   if (!roleDefault)
     return res.status(400).json({
       message: 'It was not possible to change the role of the selected user.'
     })
-  req.code = code
+  req.destroy = roleInstances.userId
   next()
 })
 
 export const removeRoleUpdate = catchError(async (req, res) => {
   const { id } = req.params
-  const result = await UserRole.findByPk(id)
-
-  const user = await User.findByPk(result.userId)
+  const result = await getOneUserRoles(id)
+  const user = await userById(result.userId)
   const { firstName, lastName, email } = user
-  const code = req.code
-  await VerifyTransaction.destroy({ where: { code } })
+  const destroyRegisters = req.destroy
+  await destroyVerifyTransaction(destroyRegisters)
   await sendNotificationEmail(
     process.env.EMAIL,
     'Este es un correo para notificarte que el cambio de rol se ha realizado con éxito',

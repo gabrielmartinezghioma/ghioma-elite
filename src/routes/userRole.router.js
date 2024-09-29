@@ -10,6 +10,7 @@ import {
   update
 } from '../controllers/userRole.controllers.js'
 import { Router } from 'express'
+import { validateUserRole } from '../validation/middleware/validateUserRole.middlewares.js'
 
 const routerUserRole = Router()
 
@@ -17,7 +18,9 @@ routerUserRole.route('/').get(getAll)
 
 const code = Math.floor(10000000 + Math.random() * 90000000).toString()
 
-routerUserRole.route('/verify-code/:id').post(removeRole, removeRoleUpdate)
+routerUserRole
+  .route('/verify-code/:id')
+  .post(validateUserRole, removeRole, removeRoleUpdate)
 
 routerUserRole
   .route('/:id')

@@ -13,7 +13,7 @@ const VerifyTransaction = sequelize.define('verifyTransaction', {
     validate: {
       len: {
         args: [8, 8],
-        msg: 'El código debe tener exactamente 8 dígitos.'
+        msg: 'El código debe tener 8 dígitos.'
       }
     }
   },
