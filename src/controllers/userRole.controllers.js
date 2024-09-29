@@ -36,14 +36,14 @@ export const remove = catchError(async (req, res, next) => {
   next()
 })
 
-export function removeSendEmail(code) {
-  return catchError(async (req, res) => {
-    const { userId } = req
-    const body = { code, userId }
-    await verifyTransaction(body)
-    return res.json({ message: 'Sent email' })
-  })
-}
+export const removeSendEmail = catchError(async (req, res, next) => {
+  const { userId } = req
+  console.log(userId)
+  const result = await verifyTransaction(userId)
+  req.code = result.code
+  next()
+})
+
 /// ///
 
 export const removeRole = catchError(async (req, res, next) => {
@@ -89,14 +89,11 @@ export const update = catchError(async (req, res, next) => {
   next()
 })
 
-export function updateSendEmail(code) {
-  return catchError(async (req, res) => {
-    const { userId } = req
-    const body = { code, userId }
-    await verifyTransaction(body)
-    return res.json({ message: 'Sent email' })
-  })
-}
+export const updateSendEmail = catchError(async (req, res, next) => {
+  const { userId } = req
+  await verifyTransaction(userId)
+  next()
+})
 
 export const updateRole = catchError(async (req, res, next) => {
   const { id } = req.params

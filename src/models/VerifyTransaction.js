@@ -27,6 +27,7 @@ const VerifyTransaction = sequelize.define('verifyTransaction', {
 
 VerifyTransaction.beforeValidate(async record => {
   let uniqueId
+  let uniqueCode
   const isUUIDInUse = async uuid => {
     const existingRecord = await VerifyTransaction.findOne({
       where: { id: uuid }
@@ -38,6 +39,19 @@ VerifyTransaction.beforeValidate(async record => {
   } while (await isUUIDInUse(uniqueId))
 
   record.id = uniqueId
+
+  const isCodeInUse = async code => {
+    const existingRecord = await VerifyTransaction.findOne({
+      where: { code }
+    })
+    return existingRecord !== null
+  }
+  do {
+    uniqueCode = Math.floor(10000000 + Math.random() * 90000000).toString()
+  } while (await isCodeInUse(uniqueCode))
+
+  record.id = uniqueId
+  record.code = uniqueCode
 })
 
 export default VerifyTransaction

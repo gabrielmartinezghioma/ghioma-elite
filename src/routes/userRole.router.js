@@ -19,7 +19,6 @@ import {
 } from '../validation/middleware/validateUserRole.middlewares.js'
 
 const routerUserRole = Router()
-const code = Math.floor(10000000 + Math.random() * 90000000).toString()
 
 routerUserRole.route('/').get(getAll)
 
@@ -33,23 +32,21 @@ routerUserRole
   .get(getOne)
   .post(
     remove,
+    removeSendEmail,
     sendVerifyTransactionCode(
       process.env.EMAIL,
       'Este es tu código de un solo uso para restablecer el rol a predeterminado.',
-      verifyTransactionCode,
-      code
-    ),
-    removeSendEmail(code)
+      verifyTransactionCode
+    )
   )
   .put(
     update,
+    updateSendEmail,
     sendVerifyTransactionCode(
       process.env.EMAIL,
       'Este es tu código de un solo uso, para actualizar rol',
-      verifyTransactionCode,
-      code
-    ),
-    updateSendEmail(code)
+      verifyTransactionCode
+    )
   )
 
 export default routerUserRole
