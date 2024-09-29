@@ -2,12 +2,13 @@ import { DataTypes } from 'sequelize'
 import sequelize from '../config/DB/conection.js'
 import Role from './Role.js'
 import User from './User.js'
+import { v4 as uuidv4 } from 'uuid'
 
 const UserRole = sequelize.define('userRole', {
   id: {
     type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true
+    primaryKey: true,
+    allowNull: false
   },
   userId: {
     type: DataTypes.UUID,
@@ -33,5 +34,20 @@ const UserRole = sequelize.define('userRole', {
 
 User.belongsToMany(Role, { through: UserRole, foreignKey: 'userId' })
 Role.belongsToMany(User, { through: UserRole, foreignKey: 'roleId' })
+
+UserRole.beforeValidate(async record => {
+  let uniqueId
+  const isUUIDInUse = async uuid => {
+    const existingRecord = await UserRole.findOne({
+      where: { id: uuid }
+    })
+    return existingRecord !== null
+  }
+  do {
+    uniqueId = uuidv4()
+  } while (await isUUIDInUse(uniqueId))
+
+  record.id = uniqueId
+})
 
 export default UserRole

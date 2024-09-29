@@ -1,12 +1,13 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/DB/conection.js'
 import bcrypt from 'bcrypt'
+import { v4 as uuidv4 } from 'uuid'
 
 const User = sequelize.define('user', {
   id: {
     type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true
+    primaryKey: true,
+    allowNull: false
   },
   firstName: {
     type: DataTypes.STRING(100),
@@ -55,6 +56,21 @@ User.beforeCreate(async user => {
   const password = user.passwordHash
   const hashPassword = await bcrypt.hash(password, 10)
   user.passwordHash = hashPassword
+})
+
+User.beforeValidate(async record => {
+  let uniqueId
+  const isUUIDInUse = async uuid => {
+    const existingRecord = await User.findOne({
+      where: { id: uuid }
+    })
+    return existingRecord !== null
+  }
+  do {
+    uniqueId = uuidv4()
+  } while (await isUUIDInUse(uniqueId))
+
+  record.id = uniqueId
 })
 
 export default User
