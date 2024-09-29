@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../config/DB/conection.js'
 import { v4 as uuidv4 } from 'uuid'
+import { randomBytes } from 'crypto'
 
-// Definir el modelo VerifyAccount
 const VerifyAccount = sequelize.define('verifyAccount', {
   id: {
     type: DataTypes.UUID,
@@ -22,6 +22,8 @@ const VerifyAccount = sequelize.define('verifyAccount', {
 
 VerifyAccount.beforeValidate(async record => {
   let uniqueId
+  let uniqueCode
+
   const isUUIDInUse = async uuid => {
     const existingRecord = await VerifyAccount.findOne({
       where: { id: uuid }
@@ -32,7 +34,18 @@ VerifyAccount.beforeValidate(async record => {
     uniqueId = uuidv4()
   } while (await isUUIDInUse(uniqueId))
 
+  const isCodeInUse = async code => {
+    const existingRecord = await VerifyAccount.findOne({
+      where: { code }
+    })
+    return existingRecord !== null
+  }
+  do {
+    uniqueCode = randomBytes(64).toString('hex')
+  } while (await isCodeInUse(uniqueCode))
+
   record.id = uniqueId
+  record.code = uniqueCode
 })
 
 export default VerifyAccount

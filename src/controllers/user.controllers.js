@@ -48,16 +48,17 @@ export const registerUser = catchError(async (req, res, next) => {
   next()
 })
 
-export function userCreated(code) {
-  return catchError(async (req, res) => {
-    const result = req.userCreated
-    const userId = result.id
-    const { id } = await Role.findOne({ where: { roleName: 'user' } })
-    await UserRole.create({ userId, roleId: id })
-    await createVerifyAccount({ code, userId })
-    return res.status(201).json(result)
-  })
-}
+export const userCreated = catchError(async (req, res, next) => {
+  const result = req.userCreated
+
+  const userId = result.id
+  const { id } = await Role.findOne({ where: { roleName: 'user' } })
+  await UserRole.create({ userId, roleId: id })
+  const userCreated = await createVerifyAccount(userId)
+  req.code = userCreated.code
+  req.result = result
+  next()
+})
 
 export const getOne = catchError(async (req, res) => {
   const { id } = req.params

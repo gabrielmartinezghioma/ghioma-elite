@@ -1,7 +1,7 @@
 import VerifyAccount from '../models/VerifyAccount.js'
 
-export const createVerifyAccount = async (verifyCode, userId) => {
-  return await VerifyAccount.create(verifyCode, userId)
+export const createVerifyAccount = async userId => {
+  return await VerifyAccount.create({ userId })
 }
 
 export const getVerifyAccount = async code => {
