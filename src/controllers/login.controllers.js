@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { loginSchema } from '../validation/login.validation.js'
 
-export const login = catchError(async (req, res) => {
+export const login = catchError(async (req, res, next) => {
   const { email, passwordHash } = req.body
 
   const body = (({ email, passwordHash }) => ({
@@ -37,7 +37,16 @@ export const login = catchError(async (req, res) => {
     expiresIn: '10d'
   })
 
-  return res.json({ user, token })
+  req.userlogin = user
+  req.token = token
+
+  next()
+})
+
+export const loginUser = catchError(async (req, res) => {
+  const user = req.userlogin
+  const token = req.token
+  res.json({ user, token })
 })
 
 export const logged = catchError(async (req, res) => {

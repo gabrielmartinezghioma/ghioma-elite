@@ -6,6 +6,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'url'
 import router from './routes/index.js'
 import errorHandler from './config/middlewares/errorHandler.middlewares.js'
+import useragent from 'express-useragent'
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(helmet({ crossOriginResourcePolicy: false }))
+app.use(useragent.express())
 
 app.get('/', (req, res) => {
   res.render('index')
