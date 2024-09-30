@@ -38,7 +38,6 @@ export const remove = catchError(async (req, res, next) => {
 
 export const removeSendEmail = catchError(async (req, res, next) => {
   const { userId } = req
-  console.log(userId)
   const result = await verifyTransaction(userId)
   req.code = result.code
   next()
