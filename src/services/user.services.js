@@ -41,5 +41,5 @@ export const deleteUser = async id => {
 }
 
 export const isVerifedUser = async user => {
-  return await user.update({ isVerifed: true })
+  return await user.update({ isVerified: true })
 }

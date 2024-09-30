@@ -23,6 +23,16 @@ export const login = catchError(async (req, res) => {
   const isValid = await bcrypt.compare(passwordHash, user.passwordHash) // true || false
   if (!isValid) return res.status(401).json({ error: 'Invalid credentials' })
 
+  if (!user.isVerified) {
+    return res.status(403).json({
+      message: 'Your account must be verified to log in.',
+      isVerified: user.isVerified,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email
+    })
+  }
+
   const token = jwt.sign({ user }, process.env.TOKEN_SECRET, {
     expiresIn: '10d'
   })
