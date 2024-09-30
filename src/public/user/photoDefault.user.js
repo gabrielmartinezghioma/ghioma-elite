@@ -1,5 +1,4 @@
 const photoDefault = req => {
-  const url = req.protocol + '://' + req.headers.host + '/icon-user.png'
-  return url
+  return req.protocol + '://' + req.headers.host + '/icon-user.png'
 }
 export default photoDefault

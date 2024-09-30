@@ -95,3 +95,36 @@ export const verifyAccountCode = catchError(async (req, res) => {
   await destroyCodeVerifyAccount(code)
   return res.json(user)
 })
+
+export const userCreateManagement = catchError(async (req, res, next) => {
+  const body = (({
+    firstName,
+    lastName,
+    email,
+    passwordHash,
+    phoneNumber,
+    frontBaseUrl
+  }) => ({
+    firstName,
+    lastName,
+    email,
+    passwordHash,
+    phoneNumber,
+    frontBaseUrl
+  }))(req.body)
+  const image = photoDefault(req)
+  const result = await createUser({ ...body, image })
+  req.userCreated = result
+  next()
+})
+
+export const userManagementCreated = catchError(async (req, res, next) => {
+  const result = req.userCreated
+  const userId = result.id
+  const { id } = await Role.findOne({ where: { roleName: 'admin' } })
+  await UserRole.create({ userId, roleId: id })
+  const userCreated = await createVerifyAccount(userId)
+  req.code = userCreated.code
+  req.result = result
+  next()
+})
