@@ -15,7 +15,11 @@ routermanagement
     validateUserManagement,
     userCreateManagement,
     userManagementCreated,
-    sendEmail('Creación de usuario ADMINISTRADOR - GHIOMA ELITE', verifyaccount)
+    sendEmail(
+      'Creación de usuario ADMINISTRADOR - GHIOMA ELITE',
+      verifyaccount,
+      process.env.EMAIL
+    )
   )
 
 export default routermanagement

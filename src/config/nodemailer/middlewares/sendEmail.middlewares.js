@@ -1,11 +1,12 @@
-import { sendNotificationEmail } from '../sendNotificationEmail.js' // Asegúrate de importar la función correcta
+import { sendNotificationEmail } from '../sendNotificationEmail.js'
 
-export function sendEmail(subject, hmtl) {
+export function sendEmail(subject, html, emailParam) {
   return async function (req, res) {
-    const { email, frontBaseUrl } = req.body
+    const { email: emailFromBody, frontBaseUrl } = req.body
+    const email = emailParam || emailFromBody // Si emailParam está presente, lo usa, si no, usa el de req.body
 
     try {
-      await sendNotificationEmail(email, subject, hmtl(frontBaseUrl, req.code))
+      await sendNotificationEmail(email, subject, html(frontBaseUrl, req.code))
 
       return res.status(201).json(req.result)
     } catch (emailError) {

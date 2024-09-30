@@ -91,7 +91,8 @@ export const update = catchError(async (req, res, next) => {
 
 export const updateSendEmail = catchError(async (req, res, next) => {
   const { userId } = req
-  await verifyTransaction(userId)
+  const result = await verifyTransaction(userId)
+  req.code = result.code
   next()
 })
 
