@@ -1,12 +1,12 @@
 import express from 'express'
-import routerUser from './user.router.js'
-import routerLogin from './login.router.js'
-import routerRole from './role.router.js'
+import routerUser from '../routes/router/user.router.js'
+import routerLogin from '../routes/router/login.router.js'
+import routerRole from '../routes/router/role.router.js'
+import routerUserRole from '../routes/router/userRole.router.js'
+import routermanagement from '../routes/router/management.router.js'
 import { verifyJWT } from '../config/middlewares/verifyJWT.middlewares.js'
 import { checkAdminRole } from '../config/middlewares/checkAdminRole.middlewares.js'
 import { verifyRecaptcha } from '../config/middlewares/verifyRecaptcha.middlewares.js'
-import routerUserRole from './userRole.router.js'
-import routermanagement from './management.router.js'
 
 const router = express.Router()
 

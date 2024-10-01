@@ -1,4 +1,4 @@
-import { getAll, getOne } from '../controllers/role.controllers.js'
+import { getAll, getOne } from '../../controllers/role.controllers.js'
 import { Router } from 'express'
 
 const routerRole = Router()

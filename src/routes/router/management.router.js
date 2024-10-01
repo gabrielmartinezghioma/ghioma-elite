@@ -1,11 +1,11 @@
 import {
   userCreateManagement,
   userManagementCreated
-} from '../controllers/user.controllers.js'
+} from '../../controllers/user.controllers.js'
 import { Router } from 'express'
-import { sendEmail } from '../config/nodemailer/middlewares/sendEmail.middlewares.js'
-import { verifyaccount } from '../config/nodemailer/views/verifyaccount.views.js'
-import { validateUserManagement } from '../validation/middleware/validateUserManagement.middlewares.js'
+import { sendEmail } from '../../config/nodemailer/middlewares/sendEmail.middlewares.js'
+import { verifyaccount } from '../../config/nodemailer/views/verifyaccount.views.js'
+import { validateUserManagement } from '../../validation/middleware/validateUserManagement.middlewares.js'
 
 const routermanagement = Router()
 
