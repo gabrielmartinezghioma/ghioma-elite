@@ -1,4 +1,4 @@
-import { loginSchema } from '../schemas/login.schemas'
+import { loginSchema } from '../schemas/login.schemas.js'
 
 export function validateLogin(req, res, next) {
   const body = (({ email, password }) => ({

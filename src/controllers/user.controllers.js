@@ -2,7 +2,6 @@ import catchError from '../config/middlewares/asyncWrapper.middlewares.js'
 import Role from '../models/Role.js'
 import UserRole from '../models/UserRole.js'
 import photoDefault from '../public/User/photoDefault.user.js'
-
 import {
   getAllUsers,
   getUserById,
@@ -11,7 +10,6 @@ import {
   deleteUser,
   isVerifedUser
 } from '../services/user.services.js'
-
 import {
   createVerifyAccount,
   destroyCodeVerifyAccount,
@@ -39,18 +37,14 @@ export const registerUser = catchError(async (req, res, next) => {
     phoneNumber,
     frontBaseUrl
   }))(req.body)
-
   const image = photoDefault(req)
-
   const result = await createUser({ ...body, image })
-
   req.userCreated = result
   next()
 })
 
 export const userCreated = catchError(async (req, res, next) => {
   const result = req.userCreated
-
   const userId = result.id
   const { id } = await Role.findOne({ where: { roleName: 'user' } })
   await UserRole.create({ userId, roleId: id })

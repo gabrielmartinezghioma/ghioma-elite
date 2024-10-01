@@ -14,7 +14,6 @@ import {
 } from '../../controllers/user.controllers.js'
 
 import { verifyaccount } from '../../config/nodemailer/views/verifyaccount.views.js'
-
 import { validateUserUpdate } from '../../validation/middleware/validateUserUpdate.middlewares.js'
 import { checkAdminRole } from '../../config/middlewares/checkAdminRole.middlewares.js'
 

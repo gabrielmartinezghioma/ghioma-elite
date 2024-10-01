@@ -1,4 +1,4 @@
-import { userManagementSchema } from '../schemas/userManagement.schemas'
+import { userManagementSchema } from '../schemas/userManagement.schemas.js'
 
 export function validateUserManagement(req, res, next) {
   const body = (({

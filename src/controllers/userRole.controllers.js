@@ -27,7 +27,6 @@ export const getOne = catchError(async (req, res) => {
   return res.json(result)
 })
 
-/// //
 export const remove = catchError(async (req, res, next) => {
   const { id } = req.params
   const roleUser = await getOneUserRoles(id)
@@ -42,8 +41,6 @@ export const removeSendEmail = catchError(async (req, res, next) => {
   req.code = result.code
   next()
 })
-
-/// ///
 
 export const removeRole = catchError(async (req, res, next) => {
   const { id } = req.params
@@ -104,7 +101,6 @@ export const updateRole = catchError(async (req, res, next) => {
   if (!result) return res.status(404).json({ message: 'Code not found' })
   const findRole = roles.find(roleObject => roleObject.roleName === role)
   const roleInstances = await getRole(result)
-
   const roleDefault = await removeUserRoles(roleInstances, findRole)
   if (!roleDefault)
     return res.status(400).json({
