@@ -1,7 +1,6 @@
 import catchError from '../config/middlewares/asyncWrapper.middlewares.js'
-import Role from '../models/Role.js'
-import UserRole from '../models/UserRole.js'
 import photoDefault from '../public/User/photoDefault.user.js'
+import { getOneFilter } from '../services/role.services.js'
 import {
   getAllUsers,
   getUserById,
@@ -10,6 +9,7 @@ import {
   deleteUser,
   isVerifedUser
 } from '../services/user.services.js'
+import { createRole } from '../services/userRole.services.js'
 import {
   createVerifyAccount,
   destroyCodeVerifyAccount,
@@ -46,8 +46,8 @@ export const registerUser = catchError(async (req, res, next) => {
 export const userCreated = catchError(async (req, res, next) => {
   const result = req.userCreated
   const userId = result.id
-  const { id } = await Role.findOne({ where: { roleName: 'user' } })
-  await UserRole.create({ userId, roleId: id })
+  const { id } = await getOneFilter('user')
+  await createRole({ userId, id })
   const userCreated = await createVerifyAccount(userId)
   req.code = userCreated.code
   req.result = result
@@ -115,8 +115,8 @@ export const userCreateManagement = catchError(async (req, res, next) => {
 export const userManagementCreated = catchError(async (req, res, next) => {
   const result = req.userCreated
   const userId = result.id
-  const { id } = await Role.findOne({ where: { roleName: 'admin' } })
-  await UserRole.create({ userId, roleId: id })
+  const { id } = await getOneFilter('admin')
+  await createRole({ userId, id })
   const userCreated = await createVerifyAccount(userId)
   req.code = userCreated.code
   req.result = result

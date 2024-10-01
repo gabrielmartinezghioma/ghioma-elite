@@ -22,3 +22,7 @@ export const getOneRole = async id => {
     ]
   })
 }
+
+export const getOneFilter = async role => {
+  Role.findOne({ where: { roleName: role } })
+}

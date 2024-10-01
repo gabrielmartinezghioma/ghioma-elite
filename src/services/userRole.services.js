@@ -17,3 +17,7 @@ export const removeUserRoles = async (roleInstances, role) => {
     roleId: role.id
   })
 }
+
+export const createRole = async (user, id) => {
+  return await UserRole.create({ userId: user, roleId: id })
+}

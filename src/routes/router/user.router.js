@@ -17,6 +17,7 @@ import { verifyaccount } from '../../config/nodemailer/views/verifyaccount.views
 import { validateUserUpdate } from '../../validation/middleware/validateUserUpdate.middlewares.js'
 import { checkAdminRole } from '../../config/middlewares/checkAdminRole.middlewares.js'
 import { validateId } from '../../validation/middleware/validateId.middlewares.js'
+import { validateRandomCrypto } from '../../validation/middleware/validateRandomCrypto.middlewares.js'
 
 const routerUser = Router()
 
@@ -31,7 +32,7 @@ routerUser
     sendEmail('Verificación de cuenta - GHIOMA ELITE', verifyaccount)
   )
 
-routerUser.route('/verify/:code').get(verifyAccountCode)
+routerUser.route('/verify/:code').get(validateRandomCrypto, verifyAccountCode)
 
 routerUser
   .route('/:id')
