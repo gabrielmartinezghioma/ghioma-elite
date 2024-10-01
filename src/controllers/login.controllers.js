@@ -4,10 +4,10 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 export const login = catchError(async (req, res, next) => {
-  const { email, passwordHash } = req.body
+  const { email, password } = req.body
   const user = await userLogin(email)
   if (!user) return res.status(401).json({ message: 'Invalid credentials' })
-  const isValid = await bcrypt.compare(passwordHash, user.passwordHash)
+  const isValid = await bcrypt.compare(password, user.passwordHash)
   if (!isValid) return res.status(401).json({ message: 'Invalid credentials' })
   if (!user.isVerified) {
     return res.status(403).json({
