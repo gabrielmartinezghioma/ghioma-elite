@@ -1,3 +1,8 @@
+import {
+  validateUserRole,
+  validateUserRoleUpdate
+} from '../../validation/middleware/validateUserRole.middlewares.js'
+import { Router } from 'express'
 import { sendVerifyTransactionCode } from '../../config/nodemailer/middlewares/sendVerifyTransactionCode.js'
 import { verifyTransactionCode } from '../../config/nodemailer/views/verifyTransactionCode.js'
 import {
@@ -12,11 +17,6 @@ import {
   updateRoleUpdate,
   updateSendEmail
 } from '../../controllers/userRole.controllers.js'
-import { Router } from 'express'
-import {
-  validateUserRole,
-  validateUserRoleUpdate
-} from '../../validation/middleware/validateUserRole.middlewares.js'
 
 const routerUserRole = Router()
 

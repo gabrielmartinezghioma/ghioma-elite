@@ -1,5 +1,8 @@
+import { Router } from 'express'
 import { verifyJWT } from '../../config/middlewares/verifyJWT.middlewares.js'
 import { verifyRecaptcha } from '../../config/middlewares/verifyRecaptcha.middlewares.js'
+import { validateUserCreate } from '../../validation/middleware/validateUserCreate.middlewares.js'
+import { sendEmail } from '../../config/nodemailer/middlewares/sendEmail.middlewares.js'
 import {
   getAll,
   getOne,
@@ -9,9 +12,6 @@ import {
   userCreated,
   registerUser
 } from '../../controllers/user.controllers.js'
-import { Router } from 'express'
-import { validateUserCreate } from '../../validation/middleware/validateUserCreate.middlewares.js'
-import { sendEmail } from '../../config/nodemailer/middlewares/sendEmail.middlewares.js'
 
 import { verifyaccount } from '../../config/nodemailer/views/verifyaccount.views.js'
 

@@ -1,8 +1,8 @@
+import { Router } from 'express'
 import loginDetailsMiddleware from '../../config/middlewares/loginDetailsMiddleware.middlewares.js'
 import { sendEmailLogin } from '../../config/nodemailer/middlewares/sendEmailLogin.middlewares.js'
 import { loginSendMail } from '../../config/nodemailer/views/loginSendMail.views.js'
 import { login, loginUser } from '../../controllers/login.controllers.js'
-import { Router } from 'express'
 
 const routerLogin = Router()
 

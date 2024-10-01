@@ -1,5 +1,5 @@
-import { getAll, getOne } from '../../controllers/role.controllers.js'
 import { Router } from 'express'
+import { getAll, getOne } from '../../controllers/role.controllers.js'
 
 const routerRole = Router()
 
