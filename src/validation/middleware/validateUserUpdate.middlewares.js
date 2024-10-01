@@ -1,4 +1,4 @@
-import { userUpdateSchema } from '../user.validation.js'
+import { userUpdateSchema } from '../schemas/user.schemas.js'
 
 export function validateUserUpdate(req, res, next) {
   const body = (({ firstName, lastName }) => ({

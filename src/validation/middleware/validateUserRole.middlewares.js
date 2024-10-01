@@ -1,4 +1,4 @@
-import { userRole, userRoleUpdate } from '../userRole.validation.js'
+import { userRole, userRoleUpdate } from '../schemas/userRole.schemas.js'
 
 export function validateUserRole(req, res, next) {
   const body = (({ code }) => ({
