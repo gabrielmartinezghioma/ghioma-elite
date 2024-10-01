@@ -116,7 +116,7 @@ export const userManagementCreated = catchError(async (req, res, next) => {
   const result = req.userCreated
   const userId = result.id
   const { id } = await getOneFilter('admin')
-  await createRole({ userId, id })
+  await createRole(userId, id)
   const userCreated = await createVerifyAccount(userId)
   req.code = userCreated.code
   req.result = result

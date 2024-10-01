@@ -1,14 +1,14 @@
 import { randomCrypto } from '../schemas/randomCrypto.schemas.js'
 
 export function validateRandomCrypto(req, res, next) {
-  const idParams = (({ id }) => ({
-    id
-  }))(req.params)
+  const { code } = req.params
 
-  const { error } = randomCrypto.validate(idParams)
+  console.log(code)
+
+  const { error } = randomCrypto.validate(code)
 
   if (error) {
-    return res.status(400).json({ message: error.details[0].message })
+    return res.status(404).json({ message: error.details[0].message })
   }
 
   next()
