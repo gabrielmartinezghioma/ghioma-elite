@@ -16,6 +16,7 @@ import {
 import { verifyaccount } from '../../config/nodemailer/views/verifyaccount.views.js'
 import { validateUserUpdate } from '../../validation/middleware/validateUserUpdate.middlewares.js'
 import { checkAdminRole } from '../../config/middlewares/checkAdminRole.middlewares.js'
+import { validateId } from '../../validation/middleware/validateId.middlewares.js'
 
 const routerUser = Router()
 
@@ -34,8 +35,8 @@ routerUser.route('/verify/:code').get(verifyAccountCode)
 
 routerUser
   .route('/:id')
-  .get(verifyJWT, getOne)
-  .delete(verifyJWT, remove)
-  .put(verifyRecaptcha, verifyJWT, validateUserUpdate, update)
+  .get(verifyJWT, validateId, getOne)
+  .delete(verifyJWT, validateId, remove)
+  .put(verifyRecaptcha, verifyJWT, validateId, validateUserUpdate, update)
 
 export default routerUser

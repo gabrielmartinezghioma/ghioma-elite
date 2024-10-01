@@ -17,6 +17,7 @@ import {
   updateRoleUpdate,
   updateSendEmail
 } from '../../controllers/userRole.controllers.js'
+import { validateId } from '../../validation/middleware/validateId.middlewares.js'
 
 const routerUserRole = Router()
 
@@ -24,13 +25,14 @@ routerUserRole.route('/').get(getAll)
 
 routerUserRole
   .route('/verify-code/:id')
-  .post(validateUserRole, removeRole, removeRoleUpdate)
-  .put(validateUserRoleUpdate, updateRole, updateRoleUpdate)
+  .post(validateId, validateUserRole, removeRole, removeRoleUpdate)
+  .put(validateId, validateUserRoleUpdate, updateRole, updateRoleUpdate)
 
 routerUserRole
   .route('/:id')
-  .get(getOne)
+  .get(validateId, getOne)
   .post(
+    validateId,
     remove,
     removeSendEmail,
     sendVerifyTransactionCode(
@@ -40,6 +42,7 @@ routerUserRole
     )
   )
   .put(
+    validateId,
     update,
     updateSendEmail,
     sendVerifyTransactionCode(

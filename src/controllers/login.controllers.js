@@ -7,7 +7,6 @@ export const login = catchError(async (req, res, next) => {
   const { email, passwordHash } = req.body
   const user = await userLogin(email)
   if (!user) return res.status(401).json({ message: 'Invalid credentials' })
-
   const isValid = await bcrypt.compare(passwordHash, user.passwordHash)
   if (!isValid) return res.status(401).json({ message: 'Invalid credentials' })
   if (!user.isVerified) {
