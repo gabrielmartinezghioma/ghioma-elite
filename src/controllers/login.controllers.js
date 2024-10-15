@@ -20,7 +20,7 @@ export const login = catchError(async (req, res, next) => {
   }
 
   const token = jwt.sign({ user }, process.env.TOKEN_SECRET, {
-    expiresIn: '10d'
+    expiresIn: '30d'
   })
   req.userlogin = user
   req.token = token
