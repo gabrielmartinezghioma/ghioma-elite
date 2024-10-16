@@ -92,12 +92,13 @@ export const userCreateSchema = Joi.object({
       'any.required': 'El número de celular es un campo requerido.'
     }),
   frontBaseUrl: Joi.string()
-    .pattern(/^(http:\/\/tn\.com|http:\/\/localhost:1000)/)
+    .pattern(
+      /^(http:\/\/localhost:3000|https:\/\/ghioma-frontend\.vercel\.app)/
+    )
     .required()
     .messages({
-      'string.base': 'La URL debe ser una cadena de texto.',
-      'string.pattern.base': 'La URL es incorrecta.',
-      'any.required': 'La URL de la base frontal es un campo requerido.'
+      'string.empty': 'La URL base es requerida.',
+      'string.pattern.base': 'La URL es invalida'
     })
 })
 
