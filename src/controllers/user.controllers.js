@@ -1,5 +1,5 @@
 import catchError from '../config/middlewares/asyncWrapper.middlewares.js'
-import photoDefault from '../public/User/photoDefault.user.js'
+import photoDefault from '../public/user/photoDefault.user.js'
 import { getOneFilter } from '../services/role.services.js'
 import {
   getAllUsers,
