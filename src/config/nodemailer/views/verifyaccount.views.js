@@ -7,7 +7,7 @@ export const verifyaccount = (url, code) => {
   </div>
   
   <!-- Cuerpo del mensaje -->
-  <div style="background-color: white; max-width: 600px; margin: 40px auto; padding: 40px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 10px;">
+  <div style="background-color: white; max-width: 600px; margin: 40px auto; padding: 40px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); ">
     <p style="font-size: 18px; color: #000000; line-height: 1.6;">Estimado/a cliente,</p>
     <p style="font-size: 18px; color: #000000; line-height: 1.6;">
       Para completar la verificación de su cuenta, haga clic en el botón a continuación:

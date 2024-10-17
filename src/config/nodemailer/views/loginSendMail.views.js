@@ -10,7 +10,7 @@ export const loginSendMail = loginDetails => {
     </div>
     
     <!-- Cuerpo del mensaje -->
-    <div style="background-color: white; max-width: 600px; margin: 40px auto; padding: 40px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 10px;">
+    <div style="background-color: white; max-width: 600px; margin: 40px auto; padding: 40px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
       <p style="font-size: 18px; color: #000000; line-height: 1.6;">Estimado/a cliente,</p>
       <p style="font-size: 18px; color: #000000; line-height: 1.6;">
         Hemos detectado un inicio de sesión en su cuenta con los siguientes detalles:

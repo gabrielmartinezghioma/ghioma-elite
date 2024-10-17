@@ -7,7 +7,7 @@ export const changeRoleSuccessfully = (firstName, lastName, email, role) => {
   </div>
   
   <!-- Cuerpo del mensaje -->
-  <div style="background-color: white; max-width: 600px; margin: 40px auto; padding: 40px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 10px;">
+  <div style="background-color: white; max-width: 600px; margin: 40px auto; padding: 40px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
     <p style="font-size: 18px; color: #000000; line-height: 1.6;">Estimado/a Administrador,</p>
     <p style="font-size: 18px; color: #000000; line-height: 1.6;">
       Nos complace informarle que el rol de la cuenta ha sido cambiado con éxito. A continuación, los detalles de la cuenta actualizada:
