@@ -3,8 +3,6 @@ import { randomCrypto } from '../schemas/randomCrypto.schemas.js'
 export function validateRandomCrypto(req, res, next) {
   const { code } = req.params
 
-  console.log(code)
-
   const { error } = randomCrypto.validate(code)
 
   if (error) {

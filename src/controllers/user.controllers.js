@@ -1,6 +1,7 @@
 import catchError from '../config/middlewares/asyncWrapper.middlewares.js'
 import photoDefault from '../public/user/photoDefault.user.js'
 import { getOneFilter } from '../services/role.services.js'
+import jwt from 'jsonwebtoken'
 import {
   getAllUsers,
   getUserById,
@@ -87,7 +88,10 @@ export const verifyAccountCode = catchError(async (req, res) => {
   const user = await getUserById(userId)
   await isVerifedUser(user)
   await destroyCodeVerifyAccount(code)
-  return res.json(user)
+  const token = jwt.sign({ user }, process.env.TOKEN_SECRET, {
+    expiresIn: '30d'
+  })
+  return res.json({ user, token })
 })
 
 export const userCreateManagement = catchError(async (req, res, next) => {
@@ -121,4 +125,9 @@ export const userManagementCreated = catchError(async (req, res, next) => {
   req.code = userCreated.code
   req.result = result
   next()
+})
+
+export const logged = catchError(async (req, res) => {
+  const user = req.user
+  return res.json(user)
 })

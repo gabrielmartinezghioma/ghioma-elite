@@ -10,8 +10,8 @@ async function startServer() {
     await sequelize.authenticate()
     console.log('✅ Database connection established successfully.')
 
-    // await sequelize.sync({ force: true })
-    await sequelize.sync()
+    await sequelize.sync({ force: true })
+    // await sequelize.sync()s
     console.log('✅ Database synchronized successfully.')
     const result = await Role.findAll()
     if (result.length === 0) await Role.bulkCreate(roles)

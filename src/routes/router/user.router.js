@@ -10,7 +10,8 @@ import {
   update,
   verifyAccountCode,
   userCreated,
-  registerUser
+  registerUser,
+  logged
 } from '../../controllers/user.controllers.js'
 
 import { verifyaccount } from '../../config/nodemailer/views/verifyaccount.views.js'
@@ -31,6 +32,8 @@ routerUser
     userCreated,
     sendEmail('Verificación de cuenta - GHIOMA ELITE', verifyaccount)
   )
+
+routerUser.route('/me').get(verifyJWT, logged)
 
 routerUser.route('/verify/:code').get(validateRandomCrypto, verifyAccountCode)
 
