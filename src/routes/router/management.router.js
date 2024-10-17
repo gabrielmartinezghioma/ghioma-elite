@@ -16,7 +16,7 @@ routermanagement
     userCreateManagement,
     userManagementCreated,
     sendEmail(
-      'Creación de usuario ADMINISTRADOR - GHIOMA ELITE',
+      'Creación de usuario ADMINISTRADOR - GHIOMA',
       verifyaccount,
       process.env.EMAIL
     )

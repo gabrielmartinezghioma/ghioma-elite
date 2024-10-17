@@ -30,7 +30,7 @@ routerUser
     validateUserCreate,
     registerUser,
     userCreated,
-    sendEmail('Verificación de cuenta - GHIOMA ELITE', verifyaccount)
+    sendEmail('Verificación de cuenta - GHIOMA', verifyaccount)
   )
 
 routerUser.route('/me').get(verifyJWT, logged)
