@@ -93,7 +93,7 @@ export const userCreateSchema = Joi.object({
     }),
   frontBaseUrl: Joi.string()
     .pattern(
-      /^ (http: \/\/localhost:3000|https:\/\/ghioma-frontend\.vercel\.app|https:\/\/(www\.)?ghioma\.com)/
+      /^(http:\/\/localhost:3000|https:\/\/ghioma-frontend\.vercel\.app|https:\/\/(www\.)?ghioma\.com)/
     )
     .required()
     .messages({
