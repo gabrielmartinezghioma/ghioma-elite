@@ -3,20 +3,23 @@ import nodemailer from 'nodemailer'
 export const sendEmail = options =>
   new Promise((resolve, reject) => {
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'mail.privateemail.com', // Cambia esto
+      port: 587,
+      secure: false, // TLS/STARTTLS (sin SSL)
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD
       },
       tls: {
         rejectUnauthorized: false
-      },
-      secure: false
+      }
     })
+
     const mailOptions = {
       from: process.env.EMAIL,
       ...options
     }
+
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log(error)
