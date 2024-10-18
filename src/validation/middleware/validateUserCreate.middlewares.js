@@ -7,14 +7,16 @@ export function validateUserCreate(req, res, next) {
     email,
     passwordHash,
     phoneNumber,
-    frontBaseUrl
+    frontBaseUrl,
+    termsAccepted
   }) => ({
     firstName,
     lastName,
     email,
     passwordHash,
     phoneNumber,
-    frontBaseUrl
+    frontBaseUrl,
+    termsAccepted
   }))(req.body)
 
   const { error } = userCreateSchema.validate(body)

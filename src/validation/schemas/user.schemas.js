@@ -99,7 +99,10 @@ export const userCreateSchema = Joi.object({
     .messages({
       'string.empty': 'La URL base es requerida.',
       'string.pattern.base': 'La URL es invalida'
-    })
+    }),
+  termsAccepted: Joi.boolean().valid(true).required().messages({
+    'any.only': 'Debes aceptar los términos y condiciones'
+  })
 })
 
 export const userUpdateSchema = Joi.object({
